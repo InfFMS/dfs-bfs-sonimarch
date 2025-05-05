@@ -9,14 +9,25 @@
 # 2.Вернуть список вершин в порядке их посещения.
 
 # Пример входных данных
-# graph = {
-#     1: [2, 3],
-#     2: [1, 4],
-#     3: [1, 5],
-#     4: [2],
-#     5: [3]
-# }
+graph = {
+    1: [2, 3],
+    2: [1, 4],
+    3: [1, 5],
+    4: [2],
+    5: [3]}
 # start = 1
 #
 # Пример выходных данных
 # [1, 2, 4, 3, 5]  # Возможен и другой порядок, зависящий от реализации DFS
+
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = []
+    visited.append(start)
+
+    for next in list(set(graph[start]) - set(visited)):
+        dfs(graph, next, visited)
+    return visited
+
+
+print(dfs(graph, 1))
