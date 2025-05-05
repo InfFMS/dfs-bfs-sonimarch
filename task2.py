@@ -60,3 +60,14 @@
 # 5: [5]
 # 6: [6]
 # 7: [7]
+
+for i in range(m):
+
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = []
+    visited.append(start)
+
+    for next in list(set(graph[start]) - set(visited)):
+        dfs(graph, next, visited)
+    return visited
