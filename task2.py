@@ -61,7 +61,20 @@
 # 6: [6]
 # 7: [7]
 
+import random
+d = {}
+n, m = map(int, input().split())
 for i in range(m):
+    a, b = map(int, input().split())
+    if a in d.keys():
+        d[a].append(b)
+    else:
+        d[a] = [b]
+    if b in d.keys():
+        d[b].append(a)
+    else:
+        d[b] = [a]
+
 
 def dfs(graph, start, visited=None):
     if visited is None:
@@ -71,3 +84,27 @@ def dfs(graph, start, visited=None):
     for next in list(set(graph[start]) - set(visited)):
         dfs(graph, next, visited)
     return visited
+
+
+st, en = map(int, input().split())
+if en in dfs(d, st):
+    print('YES')
+else:
+    print("NO")
+
+l = []
+s = set(range(1, 6))
+b = s
+cnt = 1
+while len(b) > 0:
+    a = dfs(d, random.choice(list(b)))
+    l.append(f'{cnt}: {sorted(set(a))}')
+    cnt += 1
+    b = b - set(a)
+
+
+
+print(cnt - 1)
+for i in l:
+    print(i)
+
