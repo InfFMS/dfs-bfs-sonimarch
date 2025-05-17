@@ -3,7 +3,7 @@
 # Граф: A → B → C
 #       A → D
 
-graf = {"A" : ["B", "C"],
+graf = {"A" : ["B", "D"],
         "B" : ["C"],
         "C" : [],
         "D" : []}
@@ -16,3 +16,29 @@ graf = {"A" : ["B", "C"],
 # 5. Обрабатываем D → результат [A,B,D]
 # 6. Обрабатываем C → результат [A,B,D,C]
 # 7. Все вершины обработаны → сортировка завершена
+
+
+def kan(graf):
+        d = {}
+        for i in graf:
+                d[i] = 0
+        for i in graf.values():
+                for j in i:
+                        d[j] += 1
+        n = [i for i in d.keys() if d[i] == 0]
+        r = []
+        s = ''
+        while len(n) > 0:
+                a = n[0]
+                s += ' → ' + a
+                r.append(a)
+                n.remove(a)
+                for i in graf[a]:
+                        d[i] -= 1
+                        if d[i] == 0:
+                                n.append(i)
+        return s[2::]
+
+
+
+print(kan(graf))
